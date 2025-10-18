@@ -19,4 +19,3 @@ def vwlrmvr(input):
 
 main()
 
-#saeidsouri
