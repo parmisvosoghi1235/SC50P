@@ -1,4 +1,3 @@
-
 def main():
     """Let's convert matter to energy!"""
     mass = input("Enter a mass in kilograms: ").strip()
