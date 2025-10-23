@@ -12,18 +12,15 @@ filetypes = {
 
 def main():
     """Let's check those files!"""
-    user_file = str(input("File name: ").strip().lower())
+    user_file = input("File name: ").strip().lower()
     print(filetype_check(user_file))
 
 
 def filetype_check(user_file):
     """Check the MIME type of the file"""
     if "." in user_file:
-        check = user_file.split(".", 1)
-        if check[1] not in filetypes:
-            return "application/octet-stream"
-        else:
-            return filetypes[check[1]]
+        ext = user_file.rsplit(".", 1)[1]
+        return filetypes.get(ext, "application/octet-stream")
     else:
         return "application/octet-stream"
 
