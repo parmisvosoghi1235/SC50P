@@ -1,55 +1,41 @@
 months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
 ]
 
-
 def main():
-    """Back to the future?"""
     while True:
         try:
-            userinput = input("Date: ").strip()
+            date = input("Date: ").strip()
 
-            # if the userinput contains spaces, do this.
-            if " " in userinput:
-                month, day, year = userinput.split(" ")
-                if month.title() in months:
-                    day = int(day.strip(","))
-                    month = int(months.index(month)) + 1
-                    if month <= 12 and day <= 31:
-                        print(f"{year}-{month:02}-{day:02}")
-                        break
-
-            # if the userinput does not contain spaces, do this.
-            else:
-                month, day, year = map(int, userinput.split("/"))
-                if month <= 12 and day <= 31:
+            # Case 1: Format like "September 8, 1636"
+            if "," in date:
+                month_str, day_year = date.split(" ", 1)
+                day_str, year = day_year.replace(",", "").split()
+                month = months.index(month_str.title()) + 1
+                day = int(day_str)
+                year = int(year)
+                if 1 <= month <= 12 and 1 <= day <= 31:
                     print(f"{year}-{month:02}-{day:02}")
                     break
 
-        # Go back to the top of the loop
-        except ValueError:
+            # Case 2: Format like "9/8/1636"
+            elif "/" in date:
+                month, day, year = date.split("/")
+                month = int(month)
+                day = int(day)
+                year = int(year)
+                if 1 <= month <= 12 and 1 <= day <= 31:
+                    print(f"{year}-{month:02}-{day:02}")
+                    break
+
+        except (ValueError, IndexError):
+            # Invalid format — ask again
             continue
 
-        # catch CTRL+D and CTRL+C then end the program
         except (EOFError, KeyboardInterrupt):
-            print("", end="\n")
-            quit()
-
-        # Go back to the top of the loop
-        else:
-            continue
+            print()
+            break
 
 
 main()
-
