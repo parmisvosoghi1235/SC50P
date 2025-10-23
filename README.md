@@ -39,5 +39,4 @@ As a Computer Software Engineering student, I approach each project with a strat
 
 
 > “Code is more than syntax—it's a reflection of how we think.”  
-> — Parmis Vosoughinejad
 
