@@ -1,22 +1,21 @@
+import sys
 import inflect
+p = inflect.engine()
 
+namesList = []
 
-def main():
-    """Let's bid them all adieu!"""
-    p = inflect.engine()
-    mylist = []
+while True:
+    try:
+        names = input("Name: ").title()
+        if len(names) < 1:
+            sys.exit()
 
-    while True:
+        namesList.append(names)
+        output = p.join(namesList)
 
-        # Get input from the user
-        try:
-            user_input = str(input("Name: ")).strip()
-            mylist.append(user_input)
-        # Catch CTRL+D to end the session
-        except (EOFError, KeyError):
-            print(f"Adieu, adieu, to {p.join(mylist)}", end="\n")
-            quit()
-
-
-if __name__ == "__main__":
-    main()
+    except EOFError:
+        print('\n')
+        print("Adieu, adieu, to " + output)
+        break
+    else:
+        continue
