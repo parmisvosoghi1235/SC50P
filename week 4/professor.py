@@ -1,74 +1,55 @@
 from random import randint
 
 
-# These are the values our levels represent
-levelguide = [{1: [0, 9]}, {2: [10, 99]}, {3: [100, 999]}]
-
-
 def main():
-    """"""
-    selected_level = get_level()
-    problem_sets = generate_integer(selected_level)
+    level = get_level()
+    score = 0
 
-    solved = 0
+    # 10 problems total
+    for _ in range(10):
+        a = generate_integer(level)
+        b = generate_integer(level)
+        answer = a + b
 
-    # Ask the user each question in the randomly generated problem set
-    for question in problem_sets:
-        attempts = 0
-
-        while True:
+        tries = 0
+        while tries < 3:
             try:
-                useranswer = int(input(f"{question} = "))
-                a, b = question.strip(" ").split("+")
-
-                # Compare the user's answer to the actual answer
-                if attempts == 2:
-                    print("EEE")
-                    print(f"{question} = {(int(a) + int(b))}")
+                user = int(input(f"{a} + {b} = "))
+                if user == answer:
+                    score += 1
                     break
-                elif useranswer != (int(a) + int(b)):
-                    attempts += 1
-                    print("EEE")
                 else:
-                    solved += 1
-                    attempts = 0
-                    break
-
-            # Catches user trying to enter words instead of numbers
+                    print("EEE")
+                    tries += 1
             except ValueError:
                 print("EEE")
-                attempts += 1
-                continue
+                tries += 1
 
-    print(f"Score: {solved}")
+        if tries == 3:
+            print(f"{a} + {b} = {answer}")
+
+    print(f"Score: {score}")
 
 
 def get_level():
-    """Get the user's preferred difficulty level"""
+    """Prompt user for difficulty level between 1–3"""
     while True:
         try:
             level = int(input("Level: "))
-            # If the level falls outside 1 - 3, prompt the user again
-            if level <= 3 and level > 0:
+            if 1 <= level <= 3:
                 return level
-
         except ValueError:
-            continue
+            pass
 
 
 def generate_integer(level):
-    """Generate 10 randomized problems where each level represents x digits"""
-    problem_set = []
-
-    # get the appropriate difficulty from the levelguide
-    rint_lo = levelguide[level - 1][level][0]
-    rint_hi = levelguide[level - 1][level][1]
-
-    # build a list of problem sets based off of the user's input
-    for _ in range(0, 10):
-        problem_set.append(f"{randint(rint_lo, rint_hi)} + {randint(rint_lo, rint_hi)}")
-
-    return problem_set
+    """Return a random integer for given level"""
+    if level == 1:
+        return randint(0, 9)
+    elif level == 2:
+        return randint(10, 99)
+    else:
+        return randint(100, 999)
 
 
 if __name__ == "__main__":
