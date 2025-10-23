@@ -1,44 +1,31 @@
-from random import randint
-
+import random
 
 def main():
-    """Loser buys lunch!, Let's gooo!"""
     while True:
-
-        # Prompt the user to select a level to guess under.
         try:
-            userrange = int(input("Level: ").strip())
-
-            # Check for a positive integer in level.
-            if userrange >= 1:
-                guessme = randint(1, userrange)
-                guessed(guessme)
+            level = int(input("Level: "))
+            if level > 0:
                 break
-
-        # Reprompt the user on Type or Value Errors.
-        except (TypeError, ValueError):
+        except ValueError:
             continue
 
+    number = random.randint(1, level)
 
-def guessed(gennum):
-    """Check if the userguess is correct"""
     while True:
-        userguess = int(input("Guess: ").strip())
-
-        # Check if the guess is too big or too small.
         try:
-            if userguess > gennum:
-                print("Too large!")
-            elif userguess < gennum:
-                print("Too small!")
-            else:
-                print("Just right!")
-                break
-
-        # Reprompt the user on Type or Value Errors.
-        except (TypeError, ValueError):
+            guess = int(input("Guess: "))
+            if guess <= 0:
+                continue
+        except ValueError:
             continue
 
+        if guess < number:
+            print("Too small!")
+        elif guess > number:
+            print("Too large!")
+        else:
+            print("Just right!")
+            break
 
-if __name__ == "__main__":
-    main()
+
+main()
