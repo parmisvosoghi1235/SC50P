@@ -1,4 +1,4 @@
-chedef main():
+def main():
     """Be friendly to our customer"""
     greeting = input("Greeting: ").strip().lower()
     print(f"${penalty(greeting)}")
