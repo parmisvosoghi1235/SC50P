@@ -18,4 +18,3 @@ def snekCase(input):
 
 
 main()
-
